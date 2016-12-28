@@ -386,6 +386,14 @@ will only render 20.
       multiSelection: {
         type: Boolean,
         value: false
+      },
+
+      /**
+       * Override the paddingTop to account for headers on the page
+       */
+      overridePaddingTop: {
+        type: Number,
+        value: null
       }
     },
 
@@ -775,6 +783,11 @@ will only render 20.
       var styles = window.getComputedStyle(this);
       this._scrollerPaddingTop =
           this.scrollTarget === this ? 0 : parseInt(styles['padding-top'], 10);
+
+      if (this.overridePaddingTop) {
+        this._scrollerPaddingTop = this.overridePaddingTop;
+      }
+
       this._isRTL = Boolean(styles.direction === 'rtl');
       this._viewportWidth = this.$.items.offsetWidth;
       this._viewportHeight = this._scrollTargetHeight;
