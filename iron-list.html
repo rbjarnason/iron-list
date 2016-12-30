@@ -821,7 +821,7 @@ will only render 20.
       this._firstVisibleIndexVal = null;
       this._lastVisibleIndexVal = null;
 
-      this._haveScrolledSinceLastHardResize += delta;
+      this._haveScrolledSinceLastHardResize += Math.abs(delta);
       if (this.fireResizeAfterScrolling && this.fireResizeAfterScrolling<this._haveScrolledSinceLastHardResize) {
         this.fire('iron-resize');
         this._haveScrolledSinceLastHardResize = 0;
