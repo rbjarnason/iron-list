@@ -394,6 +394,15 @@ will only render 20.
       overridePaddingTop: {
         type: Number,
         value: null
+      },
+
+      /**
+       * Fire resize event after scrolling an amount of pixels
+       * To help hack around the problem of items with big differences in height
+       */
+      fireResizeAfterScrolling: {
+        type: Number,
+        value: null
       }
     },
 
@@ -562,6 +571,11 @@ will only render 20.
      * The cost of stamping a template in ms.
      */
     _templateCost: 0,
+
+    /**
+     * Have scrolled since last firing of iron-resize event to fix positions of different sized items
+     */
+    _haveScrolledSinceLastHardResize: 0,
 
     /**
      * The bottom of the physical content.
