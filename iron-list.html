@@ -821,6 +821,12 @@ will only render 20.
       this._firstVisibleIndexVal = null;
       this._lastVisibleIndexVal = null;
 
+      this._haveScrolledSinceLastHardResize += delta;
+      if (this.fireResizeAfterScrolling && this.fireResizeAfterScrolling<this._haveScrolledSinceLastHardResize) {
+        this.fire('iron-resize');
+        this._haveScrolledSinceLastHardResize = 0;
+      }
+
       // Random access.
       if (Math.abs(delta) > this._physicalSize) {
         var idxAdjustment =  Math.round(delta / this._physicalAverage) * this._itemsPerRow
