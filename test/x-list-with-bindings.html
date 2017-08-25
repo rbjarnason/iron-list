@@ -12,7 +12,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../iron-list.html">
 
-<dom-module id="x-grid">
+<dom-module id="x-list-with-bindings">
   <template>
     <style>
       :host {
@@ -22,15 +22,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
       }
 
+      .item {
+        color: white;
+        height: 100px;
+      }
+
       iron-list {
         overflow: hidden;
+        background-color: black;
+        height: 300px;
       }
     </style>
 
-    <iron-list style$="[[_computedListSize(listSize)]]" items="[[data]]" as="item" id="list" grid>
+    <iron-list items="[[data]]" as="item" id="list">
       <template>
         <div class="item">
-          <div style$="[[_computeItemSize(item)]]" tabindex$="[[_computedTabIndex(tabIndex, useTabIndex)]]">[[item.index]]</div>
+          <div item-scope-binding>[[item.index]]</div>
+          <div host-scope-property-binding>[[propertyForReassignmentForwarding]]</div>
+          <div host-scope-subproperty-binding>[[propertyForPathChangeForwarding.text]]</div>
         </div>
       </template>
     </iron-list>
@@ -40,50 +49,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <script>
   Polymer({
-    is: 'x-grid',
+    is: 'x-list-with-bindings',
 
     properties: {
       data: {
         type: Array
       },
-
-      itemSize: {
-        type: Number,
-        value: 100
+      propertyForReassignmentForwarding: {
+        type: String,
+        value:"somePropertyText"
       },
-
-      listSize: {
-        type: Number,
-        value: 300
-      },
-
-      pre: {
-        type: Boolean
-      },
-
-      useTabIndex: {
-        value: true,
-        type: Boolean
+      propertyForPathChangeForwarding: {
+        type: Object,
+        value: function(){
+          return {text:"someSubPropertyText"}
+        }
       }
     },
 
     get list() {
       return this.$.list;
-    },
-
-    _computeItemSize: function(item) {
-      var css = this.pre ? 'white-space:pre;' : '';
-      css += 'height: ' + (this.itemSize) + 'px;';
-      css += 'width: ' + (this.itemSize) + 'px;';
-      return css;
-    },
-
-    _computedListSize: function(listHeight) {
-      return 'height: ' + (listHeight) + 'px;' + 'width: ' + (listHeight) + 'px;';
-    },
-
-    _computedTabIndex: function(tabIndex, useTabIndex) {
-      return useTabIndex ? tabIndex : undefined;
     }
   });
 </script>
