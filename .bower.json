@@ -80,5 +80,14 @@
   },
   "resolutions": {
     "webcomponentsjs": "^1.0.0"
-  }
+  },
+  "_release": "2.0.11",
+  "_resolution": {
+    "type": "version",
+    "tag": "v2.0.11",
+    "commit": "61f7760f180b903ad2b73b1a873a64aab804635b"
+  },
+  "_source": "https://github.com/polymerelements/iron-list.git",
+  "_target": "2.x",
+  "_originalSource": "polymerelements/iron-list"
 }
